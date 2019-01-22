@@ -155,10 +155,10 @@ $(function(){
 				</div>
 				<div class="subMenuWrap">
 					<div class="subMenuCallInfo">
-					<p>개인회생/개인파산/민사 똑같다고 생각 마세요.</p>
-					<p>여러분의 최고 파트너 <span id="bigtxt">김헌석</span>의 문을 두드리세요.</p>
-					<h1>1877-0879</h1>
-					<h1>053-743-1333</h1>
+					<p>지속적인 인구유입과 정주여건 인프라로</p>
+					<p>투자의 확신을 더 하다 <span id="bigtxt"></span></p>
+					<h1>1577-1234</h1>
+					<h1>053-123-4567</h1>
 				</div><!-- subMenuCallInfo -->
 				</div>
 			</li>
@@ -166,8 +166,8 @@ $(function(){
 				<a class="mMenu" href="#none">사업개요</a>
 				<div class="subMenuWrap">
 					<ul class="subMenuUl">
-						<li><a href="${pageContext.request.contextPath}/#none">사업개요</a></li>
-						<li><a href="${pageContext.request.contextPath}/#none">오시는길</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub01_01">사업개요</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub01_02">오시는길</a></li>
 					</ul>
 				</div>
 			</li>
@@ -175,8 +175,8 @@ $(function(){
 				<a class="mMenu" href="#none">투자가치</a>
 				<div class="subMenuWrap">
 					<ul class="subMenuUl">
-						<li><a href="${pageContext.request.contextPath}/#none">미래가치</a></li>
-						<li><a href="${pageContext.request.contextPath}/#none">상권가치</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub02_01">미래가치</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub02_02">상권가치</a></li>
 					</ul>
 				</div>
 			</li>
@@ -184,7 +184,7 @@ $(function(){
 				<a class="mMenu" href="#none">층별안내</a>
 				<div class="subMenuWrap">
 					<ul class="subMenuUl">
-						<li><a href="${pageContext.request.contextPath}/sub03_02">MD구성</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub03_01">MD구성</a></li>
 						<%-- <li><a href="${pageContext.request.contextPath}/sub03_02">층별도면</a></li> --%>
 					</ul>
 				</div>
@@ -193,9 +193,9 @@ $(function(){
 				<a class="mMenu" href="#none">고객센터</a>
 				<div class="subMenuWrap">
 					<ul class="subMenuUl">
-						<li><a href="${pageContext.request.contextPath}/#none">관심고객등록</a></li>
-						<li><a href="${pageContext.request.contextPath}/#none">공지사항</a></li>
-						<li><a href="${pageContext.request.contextPath}/#none">언론보도</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub04_01">관심고객등록</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub04_02">공지사항</a></li>
+						<li><a href="${pageContext.request.contextPath}/sub04_03">언론보도</a></li>
 					</ul>
 				</div>
 			</li>

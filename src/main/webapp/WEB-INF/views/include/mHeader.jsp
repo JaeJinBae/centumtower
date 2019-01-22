@@ -206,8 +206,8 @@
 				<p>사업개요 <img src="${pageContext.request.contextPath}/resources/images/ico_arr_nav_down_x2.png"></p>
 				<div class="subMenu">
 					<ul class="subNavUl">
-						<li><a href="${pageContext.request.contextPath}/mMenu01_1">- 사업개요</a></li>
-						<li><a href="${pageContext.request.contextPath}/mMenu01_2">- 오시는길</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu01_01">- 사업개요</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu01_02">- 오시는길</a></li>
 					</ul>
 				</div>
 			</li>
@@ -215,8 +215,8 @@
 				<p>투자가치<img src="${pageContext.request.contextPath}/resources/images/ico_arr_nav_down_x2.png"></p>
 				<div class="subMenu">
 					<ul class="subNavUl">
-						<li><a href="${pageContext.request.contextPath}/mMenu02_1">- 미래가치</a></li>
-						<li><a href="${pageContext.request.contextPath}/mMenu02_2">- 상권가치</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu02_01">- 미래가치</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu02_02">- 상권가치</a></li>
 					</ul>
 				</div>
 			</li>
@@ -224,7 +224,7 @@
 				<p>층별안내<img src="${pageContext.request.contextPath}/resources/images/ico_arr_nav_down_x2.png"></p>
 				<div class="subMenu">
 					<ul class="subNavUl">
-						<li><a href="${pageContext.request.contextPath}/mMenu03_2">- MD구성</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu03_01">- MD구성</a></li>
 						<%-- <li><a href="${pageContext.request.contextPath}/mMenu03_2">- 층별도면</a></li> --%>
 					</ul>
 				</div>
@@ -233,9 +233,9 @@
 				<p>고객센터<img src="${pageContext.request.contextPath}/resources/images/ico_arr_nav_down_x2.png"></p>
 				<div class="subMenu">
 					<ul class="subNavUl">
-						<li><a href="${pageContext.request.contextPath}/mMenu04_1">- 관심고객등록</a></li>
-						<li><a href="${pageContext.request.contextPath}/mMenu04_2">- 공지사항</a></li>
-						<li><a href="${pageContext.request.contextPath}/mMenu04_3">- 언론보도</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu04_01">- 관심고객등록</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu04_02">- 공지사항</a></li>
+						<li><a href="${pageContext.request.contextPath}/mMenu04_03">- 언론보도</a></li>
 					</ul>
 				</div>
 			</li>
