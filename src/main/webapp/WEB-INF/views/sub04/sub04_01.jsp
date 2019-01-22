@@ -145,6 +145,7 @@
 	}
 	.tblWrap{
 		width:100%;
+		margin: 50px 0 35px 0; 
 	}
 	.tblWrap > table{
 		width:100%;
@@ -154,6 +155,7 @@
 	    table-layout: fixed;
 	}
 	.tblWrap > table th{
+		width:200px;
 		line-height: 20px;
 	    color: #333;
 	    font-weight: bold;
@@ -165,7 +167,7 @@
 	    font-size:15px
 	}
 	.tblWrap > table td{
-		line-height: 20px;
+		line-height: 20px; 
 	    border-bottom: 1px solid #e4e4e4;
 	    color: #666666;
 	    padding: 10px 0 10px 0;
@@ -175,7 +177,7 @@
 	}
 	.tblWrap > table td > input{
 		border: 1px solid #cccccc;
-		padding: 0 0 0 2px;
+		padding: 0 5px 0 5px;
 		height:24px;
 		line-height: 24px;
 		vertical-align: middle;
