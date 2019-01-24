@@ -183,6 +183,12 @@
 		vertical-align: middle;
 		font-size:15px;
 	}
+	input[name='call1']{
+		width:50px;
+	}
+	input[name='call2'], input[name='call3']{
+		width:100px;
+	}
 	.btnWrap{
 		text-align: center;
 	}
@@ -222,23 +228,40 @@
 	$(function(){
 		$(".subTopTxt").fadeIn(2000);
 		
-		$(".contentMenuWrap > ul > li").click(function(){
-			var index=$(this).index();
+		$("#f1").submit(function(){			
+			var name=$("input[name='name']").val();
 			
-			for(var i=0; i<3; i++){
-				$(".contentMenuWrap > ul > li").eq(i).find("img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_menu_floor"+(i+1)+".png");
+			var call1=$("input[name='call1']").val();
+			var call2=$("input[name='call2']").val();
+			var call3=$("input[name='call3']").val();
+			var callTotal=call1+"-"+call2+"-"+call3;
+			$("input[name='call']").val(callTotal);
+			var call=$("input[name='call']").val();
+			
+			var mail1=$("input[name=mail1]").val();
+			var mail2=$("input[name=mail2]").val();
+			var mailTotal=mail1+"@"+mail2;
+			$("input[name=mail]").val(mailTotal);
+			var mail=$("input[name=mail]").val();
+			
+			
+			
+			if(name=="" || name==null){
+				alert("이름을 입력해주세요.");
+				return false;
+			}
+			if(call1=="" || call1==null || call2=="" || call2==null || call3=="" || call3==null){
+				alert("전화번호를 정확하게 입력해주세요.");
+				return false;
+			}
+			if(mail1=="" || mail1==null || mail2=="" || mail2==null){
+				alert("이메일을 정확하게 입력해주세요.");
+				return false;
 			}
 			
-			if(index==0){
-				$(".contentMenuWrap > ul > li").eq(0).find("img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_menu_floor1_1.png");
-				$(".content > img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_floor1.png");
-			}else if(index==1){
-				$(".contentMenuWrap > ul > li").eq(1).find("img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_menu_floor2_1.png");
-				$(".content > img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_floor2.png");
-			}else if(index==2){
-				$(".contentMenuWrap > ul > li").eq(2).find("img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_menu_floor3_1.png");
-				$(".content > img").attr("src","${pageContext.request.contextPath}/resources/images/sub03_content_floor3.png");
-			}
+			console.log("이름: "+name+", 전화번호: "+call+", 메일: "+mail);
+						
+			return false;
 		});
 	});
 </script>
@@ -272,7 +295,7 @@
 		<div class="contentWrap">
 			<div class="contentMain">
 				<div class="content">
-					<form>
+					<form id="f1" action="" method="post">
 						<div class="agreeWrap">
 							<p class="agreeTitle">개인정보 수집 및 이용동의</p>
 							<div class="scrollBox">
@@ -318,11 +341,13 @@
 								</tr>
 								<tr>
 									<th>전화번호</th>
-									<td><input type="text" name="call" id="call1">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" name="call2" id="call2">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" name="call3" id="call3"></td>
+									<td><input type="text" name="call1" id="call1">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" name="call2" id="call2">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" name="call3" id="call3"></td>
+									<td><input type="hidden" name="call" value=""></td>
 								</tr>
 								<tr>
 									<th>이메일</th>
 									<td><input type="text" name="mail1" id="mail1">&nbsp;&nbsp;@&nbsp;&nbsp;<input type="text" name="mail2" id="mail2"></td>
+									<td><input type="hidden" name="mail" value=""></td>
 								</tr>
 							</table>
 						</div>

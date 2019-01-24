@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webaid.mappers.CustomerMapper">
+
+	<select id="selectAll" resultType="CustomerVO">
+		select * from customer order by mno desc
+	</select>
+	
+	<select id="selectOne" resultType="CustomerVO">
+		select * from customer where mno=#{mno}
+	</select>
+	
+	<insert id="insert">
+		insert into customer values(0, #{name}, #{phone}, #{email}, #{regdate})
+	</insert>
+	
+	<delete id="delete">
+		delete from customer where mno=#{mno}
+	</delete>
+	
+	<select id="listSearch" resultType="CustomerVO">
+		select * from customer <include refid="search"></include> order by mno desc, regdate desc limit #{pageStart},#{perPageNum}  
+	</select>
+	
+	<sql id="search">
+		<if test="searchType=='n'.toString()">
+			where name like concat('%',#{keyword},'%') 
+		</if>
+		<if test="searchType=='m'.toString()">
+			where mno like concat('%',#{keyword},'%')
+		</if>
+	</sql>
+	
+	<select id="listSearchCount" resultType="int">
+		select count(mno) from customer <include refid="search"></include>
+	</select>
+	
+</mapper>

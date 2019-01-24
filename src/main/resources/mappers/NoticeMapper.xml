@@ -33,14 +33,11 @@
 	</select>
 	
 	<sql id="search">
-		<if test="searchType=='c'.toString()">
-			where content like concat('%',#{keyword},'%')
-		</if>
 		<if test="searchType=='t'.toString()">
 			where title like concat('%',#{keyword},'%') 
 		</if>
-		<if test="searchType=='r'.toString()">
-			where regdate like concat('%',#{keyword},'%')
+		<if test="searchType=='b'.toString()">
+			where bno like concat('%',#{keyword},'%')
 		</if>
 	</sql>
 	
