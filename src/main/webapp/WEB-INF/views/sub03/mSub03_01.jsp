@@ -223,10 +223,10 @@
 					<ul class="navUl"> 
 						<li><a href="${pageContext.request.contextPath}/"><img class="btnHome" src="${pageContext.request.contextPath}/resources/images/home.png"></a></li>
 						<li>
-							<a href="#none">사업개요<img class="btnArrow" src="${pageContext.request.contextPath}/resources/images/down_arrow.png"></a>
+							<a href="#none">층별안내<img class="btnArrow" src="${pageContext.request.contextPath}/resources/images/down_arrow.png"></a>
 							<ul class="sub_subDropdown">
+								<li><a href="${pageContext.request.contextPath}/#none">사업개요</a></li>
 								<li><a href="${pageContext.request.contextPath}/#none">투자가치</a></li>
-								<li><a href="${pageContext.request.contextPath}/#none">층별안내</a></li>
 								<li><a href="${pageContext.request.contextPath}/#none">고객센터</a></li>
 							</ul>
 						</li>
