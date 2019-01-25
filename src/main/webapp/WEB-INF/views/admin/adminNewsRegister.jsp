@@ -199,15 +199,15 @@
 								<td><input type="text" name="company"></td>
 							</tr>
 							<tr>
-								<th>URL</th>
-								<td><input type="text" name="url"></td>
+								<th>URL</th> 
+								<td><input type="text" name="url" placeholder="ex) http://www.naver.com"></td>
 							</tr>
 						</table>
 					</div>
 					<div class="btnWrap">
 						<input class="btnSubmit" type="submit" value="등 록">
 						<input class="btnReset" type="reset" value="취 소">
-						<a class="btnPrev" href="${pageContext.request.contextPath}/admin/adminNews${pageMaker.makeSearch(pageMaker.cri.page)}"><button>이 전</button></a>
+						<a class="btnPrev" type="button" href="${pageContext.request.contextPath}/admin/adminNews${pageMaker.makeSearch(pageMaker.cri.page)}"><button type="button">이 전</button></a>
 					</div>
 				</form>
 			</div><!-- centerMenu end -->
