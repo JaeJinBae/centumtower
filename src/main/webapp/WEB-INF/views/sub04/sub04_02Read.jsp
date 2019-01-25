@@ -126,6 +126,7 @@
 	.tableWrap > table tr:first-child{
 		border-top:2px solid gray;
 		border-bottom:2px solid #e3e3e3;
+		background: #efefef;
 	}
 	.tableWrap > table tr:last-child{
 		border-bottom:2px solid gray;
@@ -137,7 +138,7 @@
 		overflow: hidden;
 	}
 	.tableWrap > table td >.contentInfoUl{
-		float:right;
+		float: left;
 	}
 	.tableWrap > table td > .contentInfoUl > li{
 		float:left;

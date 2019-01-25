@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/slick/slick-theme.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-rwdImageMaps/1.6/jquery.rwdImageMaps.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/slick/slick.min.js"></script>
 <style>
 	body{
@@ -155,6 +156,9 @@
 			$(".mainBannerTxt2").fadeIn(800);
 		});
 		
+		//이벤트 이미지맵 반응형
+		$('img[usemap]').rwdImageMaps();
+		
 		//mainContent02 slider
 		$(".mainContent02Slider").slick({
 			arrows:true,
@@ -199,7 +203,7 @@
 						<img src="${pageContext.request.contextPath}/resources/images/mainContent02Slider2.jpg">
 						<img src="${pageContext.request.contextPath}/resources/images/mainContent02Slider3.jpg">
 					</div>
-				</div>
+				</div> 
 			</div><!-- mainContent02 end -->
 			<div class="mainContent03">
 				<div class="mainContent03ImgWrap">
@@ -209,7 +213,10 @@
 		</div><!-- mainContentWrap end -->
 	</section>
 	<footer>
-		<img src="${pageContext.request.contextPath}/resources/images/pcfooter.jpg">
+		<img src="${pageContext.request.contextPath}/resources/images/pcfooter.jpg" usemap="#footerImg">
+		<map id="footerImg" name="footerImg">
+			<area shape="rect" alt="" title="" coords="944,70,1131,93" href="${pageContext.request.contextPath}/admin/adminLogin" target="" />
+		</map>
 	</footer>
 </body>
 </html>

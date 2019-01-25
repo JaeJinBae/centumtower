@@ -162,7 +162,10 @@
 			<div class="mainContent01">
 				<img class="mainBannerTxt4" src="${pageContext.request.contextPath}/resources/images/mobileMainContent01.png" usemap="#mobileMainContent01">
 				<map id="mobileMainContent01" name="mobileMainContent01">
-					<area shape="rect" alt="" title="" coords="397,244,555,278" href="${pageContext.request.contextPath}/mMenu03_02" target="" />
+					<area shape="rect" alt="" title="" coords="78,243,236,279" href="${pageContext.request.contextPath}/mMenu02_01" target="" />
+					<area shape="rect" alt="" title="" coords="397,243,557,280" href="${pageContext.request.contextPath}/mMenu03_01" target="" />
+					<area shape="rect" alt="" title="" coords="78,561,238,595" href="${pageContext.request.contextPath}/mMenu01_02" target="" />
+					<area shape="rect" alt="" title="" coords="401,559,560,595" href="${pageContext.request.contextPath}/mMenu04_01" target="" />
 				</map>
 			</div><!-- mainContent01 end -->
 			<div class="mainContent02">

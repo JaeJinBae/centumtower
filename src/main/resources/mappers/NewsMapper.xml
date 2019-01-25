@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insert">
-		insert into news2 values(0, #{title}, #{writer}, #{company}, #{0}, #{url})
+		insert into news2(bno, title, writer, company, url) values(0, #{title}, #{writer}, #{company}, #{url})
 	</insert>
 	
 	<delete id="delete">
