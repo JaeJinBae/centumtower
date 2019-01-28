@@ -53,7 +53,7 @@
 	.leftMenu > ul > li > a{
 		font-size:20px;
 	}
-	.leftMenu > ul > li:nth-child(3) > a{
+	.leftMenu > ul > li:first-child > a{
 		font-weight: bold;
 	}
 	.centerMenu{
@@ -92,6 +92,12 @@
 		width:70px;
 	}
 	.th4{
+		width:85px;
+	}
+	.th5{
+		width:50px;
+	}
+	.th6{
 		width:100px;
 	}
 	.tableWrap > table tr td{
@@ -152,6 +158,7 @@
 	.page ul li a{
 		font-size:1.1em;
 		line-height: 40px;
+		padding:12px;
 	}
 	#searchBtn{
 		width:50px;
@@ -175,7 +182,7 @@
     		var searchType = encodeURIComponent(s);
     		var k=$("input[name='keyword']").val();
     		var keyword = encodeURIComponent(k);
-    		location.href="adminNews${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
+    		location.href="adminNotice${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
     	});
 		
 	});
@@ -196,64 +203,69 @@
 				</ul>
 			</div>
 			<div class="centerMenu"> 
-				<h3 class="boardTitle">언론보도관리</h3>
+				<h3 class="boardTitle">관심고객관리</h3>
 				<div class="tableWrap">
-						<table>
-							<tr>
-								<th class="th1">번호</th>
-								<th class="th2">제목</th>
-								<th class="th3">작성자</th>
-								<th class="th4">비고</th>
-							</tr>
-							<c:choose>
+					<table>
+						<tr class="tbl_header">
+							<th class="th1">번호</th>
+							<th class="th2">이름</th>
+							<th class="th3">전화번호</th>
+							<th class="th4">이메일</th> 
+							<th class="th5">등록일</th>
+							<th class="th6">비고</th>
+						</tr>
+						<c:choose>
 						    <c:when test="${fn:length(list) == 0}">
 					        	<tr>
-					        		<td colspan="5" style=" text-align: center;">등록된 게시물이 없습니다.</td>
+					        		<td colspan="6" style=" text-align: center;">등록된 게시물이 없습니다.</td>
 					        	</tr>
 						    </c:when>
 						    <c:otherwise>
 						        <c:forEach var="item" items="${list}">
 									<tr>
-										<td class="bno">${item.bno}</td>
-										<td class="title"><a href="${pageContext.request.contextPath}/admin/adminNewsRead${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno}">[${item.company}] ${item.title}</a></td>
-										<td>${item.writer}</td>
+										<td>${item.mno}</td>
+										<td class="title">${item.name}</td>
+										<td>${item.phone}</td>
+										<td>${item.email}</td>
+										<td><fmt:formatDate type="date" value="${item.regdate}"/></td>
 										<td>
-											<a href="${pageContext.request.contextPath}/admin/adminNewsUpdate${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno}"><button>수정</button></a>
+											<a href="${pageContext.request.contextPath}/admin/adminNoticeUpdate${pageMaker.makeSearch(pageMaker.cri.page)}&mno=${item.mno}"><button>수정</button></a>
 											&nbsp;|&nbsp;
-											<a href="${pageContext.request.contextPath}/admin/adminNewsDelete${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno}"><button>삭제</button></a>
+											<a href="${pageContext.request.contextPath}/admin/adminNoticeDelete${pageMaker.makeSearch(pageMaker.cri.page)}&mno=${item.mno}"><button>삭제</button></a>
 										</td>
 									</tr>	
 								</c:forEach>
 						    </c:otherwise> 
 						</c:choose>
-						</table>
-						<p class="registerBtn"><a href="adminNewsRegister${pageMaker.makeSearch(pageMaker.cri.page)}"><button>글쓰기</button></a></p>
-						<div class="page">
-							<ul>
-								<c:if test="${pageMaker.prev}">
-									<li><a href="${pageMaker.makeSearch(pageMaker.startPage-1) }">&laquo;</a></li>
-								</c:if>
-								
-								<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-									<li ${pageMaker.cri.page == idx? 'class=active1':''}><a href="${pageMaker.makeSearch(idx)}" ${pageMaker.cri.page == idx? 'class=active2':''}>${idx}</a></li>
-								</c:forEach>
-								
-								<c:if test="${pageMaker.next}">
-									<li><a href="${pageMaker.makeSearch(pageMaker.endPage+1)}">&raquo;</a></li>
-								</c:if>
-								
-							</ul>
-						</div><!-- page end -->
-						<div class="searchWrap">
-							<select name="searchType">
-								<option value="n">선택해주세요.</option>
-								<option value="t" ${cri.searchType=='t'?'selected':''}>제목</option>
-								<option value="c" ${cri.searchType=='b'?'selected':''}>번호</option>
-							</select> 
-							<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
-							<button id="searchBtn">검색</button>
-						</div>
-					</div><!-- tableWrap end -->
+					</table>
+					<p class="registerBtn"><a href="adminNoticeRegister${pageMaker.makeSearch(pageMaker.cri.page)}"><button>글쓰기</button></a></p>
+					<div class="page">
+						<ul>
+							<c:if test="${pageMaker.prev}">
+								<li><a href="${pageMaker.makeSearch(pageMaker.startPage-1) }">&laquo;</a></li>
+							</c:if>
+							
+							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+								<li ${pageMaker.cri.page == idx? 'class=active1':''}><a href="${pageMaker.makeSearch(idx)}" ${pageMaker.cri.page == idx? 'class=active2':''}>${idx}</a></li>
+							</c:forEach>
+							
+							<c:if test="${pageMaker.next}">
+								<li><a href="${pageMaker.makeSearch(pageMaker.endPage+1)}">&raquo;</a></li>
+							</c:if>
+							
+						</ul>
+					</div><!-- page end -->
+					<div class="box-body" style="text-align:center;">
+						<select name="searchType">
+							<option value="n">선택해주세요.</option>
+							<option value="t" ${cri.searchType=='t'?'selected':''}>제목</option>
+							<option value="c" ${cri.searchType=='c'?'selected':''}>내용</option>
+							<option value="r" ${cri.searchType=='r'?'selected':''}>작성일</option>
+						</select> 
+						<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
+						<button id="searchBtn">검색</button>
+					</div>
+				</div><!-- tbl_board -->
 			</div><!-- centerMenu end -->
 		</div>
 	</section>

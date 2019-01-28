@@ -266,18 +266,18 @@
 			var call2=$("input[name='call2']").val();
 			var call3=$("input[name='call3']").val();
 			var callTotal=call1+"-"+call2+"-"+call3;
-			$("input[name='call']").val(callTotal);
-			var call=$("input[name='call']").val();
+			$("input[name='phone']").val(callTotal);
+			var call=$("input[name='phone']").val();
 			
 			var mail1=$("input[name=mail1]").val();
 			var mail2=$("input[name=mail2]").val();
 			var mailTotal=mail1+"@"+mail2;
-			$("input[name=mail]").val(mailTotal);
-			var mail=$("input[name=mail]").val();
+			$("input[name='email']").val(mailTotal);
+			var mail=$("input[name='email']").val();
 			
 			
 			
-			if(name=="" || name==null){
+			if(name=="" || name==null){ 
 				alert("이름을 입력해주세요.");
 				return false;
 			}
@@ -290,9 +290,8 @@
 				return false;
 			}
 			
-			console.log("이름: "+name+", 전화번호: "+call+", 메일: "+mail);
+			//console.log("이름: "+name+", 전화번호: "+call+", 메일: "+mail);
 						
-			return false;
 		});
 	});
 </script>
@@ -335,7 +334,7 @@
 		<div class="contentWrap">
 			<div class="contentMain">
 				<div class="content">
-					<form id="f1" action="" method="post">
+					<form id="f1" action="customerRegister" method="post">
 						<div class="agreeWrap">
 							<p class="agreeTitle">개인정보 수집 및 이용동의</p>
 							<div class="scrollBox">
@@ -382,12 +381,12 @@
 								<tr>
 									<th>전화번호</th>
 									<td><input type="text" name="call1" id="call1">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" name="call2" id="call2">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" name="call3" id="call3"></td>
-									<td><input type="hidden" name="call" value=""></td>
+									<td><input type="hidden" name="phone" value=""></td>
 								</tr>
 								<tr>
 									<th>이메일</th>
 									<td><input type="text" name="mail1" id="mail1">&nbsp;&nbsp;@&nbsp;&nbsp;<input type="text" name="mail2" id="mail2"></td>
-									<td><input type="hidden" name="mail" value=""></td>
+									<td><input type="hidden" name="email" value=""></td>
 								</tr>
 							</table>
 						</div>

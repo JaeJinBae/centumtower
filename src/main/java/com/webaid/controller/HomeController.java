@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.webaid.domain.CustomerVO;
 import com.webaid.domain.NewsVO;
 import com.webaid.domain.NoticeVO;
 import com.webaid.domain.PageMaker;
 import com.webaid.domain.SearchCriteria;
+import com.webaid.service.CustomerService;
 import com.webaid.service.NewsService;
 import com.webaid.service.NoticeService;
 
@@ -32,6 +34,9 @@ public class HomeController {
 	
 	@Autowired
 	private NewsService newsService;
+	
+	@Autowired
+	private CustomerService cService;
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -99,6 +104,15 @@ public class HomeController {
 		logger.info("sub04_01 Get");
 		
 		return "sub04/sub04_01";
+	}
+	
+	@RequestMapping(value="/customerRegister", method=RequestMethod.POST)
+	public String customerRegister(CustomerVO vo, Model model){
+		logger.info("customerRegister post");
+		
+		cService.insert(vo);
+				
+		return "redirect:/sub04_01";
 	}
 	
 	@RequestMapping(value = "/sub04_02", method = RequestMethod.GET)

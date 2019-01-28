@@ -16,6 +16,10 @@
 		insert into news2(bno, title, writer, company, url) values(0, #{title}, #{writer}, #{company}, #{url})
 	</insert>
 	
+	<update id="update">
+		update news2 set title=#{title}, company=#{company}, url=#{url} where bno=#{bno}
+	</update>
+	
 	<delete id="delete">
 		delete from news2 where bno=#{bno}
 	</delete>

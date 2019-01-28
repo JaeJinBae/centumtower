@@ -9,6 +9,7 @@ public interface NewsService {
 	public List<NewsVO> selectAll();
 	public NewsVO selectOne(int bno);
 	public void insert(NewsVO vo);
+	public void update(NewsVO vo);
 	public void delete(int bno);
 	public List<NewsVO> listSearch(SearchCriteria cri) throws Exception;
 	public int listSearchCount(SearchCriteria cri) throws Exception;

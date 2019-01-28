@@ -176,7 +176,7 @@
 			<div class="leftMenu">
 				<h2>&lt; 고객센터관리 &gt;</h2>
 				<ul>
-					<li> <a href="${pageContext.request.contextPath}/admin/">- 관심고객관리</a></li> 
+					<li> <a href="${pageContext.request.contextPath}/admin/adminCustomer">- 관심고객관리</a></li> 
 					<li> <a href="${pageContext.request.contextPath}/admin/adminNotice">- 공지사항</a></li>
 					<li> <a href="${pageContext.request.contextPath}/admin/adminNews">- 언론보도</a></li>
 				</ul>

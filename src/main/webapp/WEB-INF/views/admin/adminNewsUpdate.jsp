@@ -54,7 +54,7 @@
 	.leftMenu > ul > li > a{
 		font-size:20px;
 	}
-	.leftMenu > ul > li:nth-child(2) > a{
+	.leftMenu > ul > li:nth-child(3) > a{
 		font-weight: bold;
 	}
 	.centerMenu{
@@ -67,98 +67,93 @@
 		font-size:20px;
 		margin-bottom:20px;
 	}
-	
-	/* 공지사항 */
-	.tbl_board{
-		width:90%;
-		height:700px;
-		margin:0 auto;
-		padding-top:30px;
-		position:relative;
-	}
-	.tbl_board table{
-		width:800px;
-		margin:0 auto;
-		border-collapse: collapse; 
-	}
-	.tbl_board table .tbl_header th{
-		border-top:2px solid #e3e3e3;
-		border-bottom:2px solid #5c4530;
-		padding:8px 13px;
-		font-size:15px;
-	}
-	.tbl_board table .tbl_header th:nth-child(2){
-		width:400px;
-	}
-	.tbl_board table td{
-		padding:8px 13px;
-		border-bottom:1px solid #e3e3e3;
-		font-size:15px;
-	}
-	.tbl_board table td a{
-		font-size:15px;
-	}
-	.tbl_board table tr:not(first-child) td:nth-child(2){
-		text-align: left;
-	}
-	.tbl_board table td:not(.title){
-		text-align: center;
-	}
-	.replyCnt{
-		font-weight: 600;
-	}
-	.title>a:hover{
-		color:red;
-	}
-	.title>img{
-		width:12px;
-	}
-	/* 글쓰기 */
-	#container{
-		width:900px;
-		margin:0 auto;
-	}
-	#header{
+	.tblWrap{
 		width:100%;
-		margin-bottom:30px;
+		margin: 28px 0 35px 0; 
 	}
-	#title{
-		width:50%;
+	.tblWrap > table{
+		width:100%;
+		border-top: 2px solid #737373;
+	    border-collapse: collapse;
+	    border-spacing: 0;
+	    table-layout: fixed;
+	}
+	.tblWrap > table th{
+		width:150px;
 		line-height: 20px;
+	    color: #333;
+	    font-weight: bold;
+	    text-align: center;
+	    border-bottom: 1px solid #e4e4e4;
+	    background: #f9f9f9;
+	    font-family: 'NanumGothicRegular';
+	    padding: 10px 0 10px 0;
+	    font-size:15px
 	}
-	
-	.btn{
-		width:300px;
-		height:40px;
-		font-size: 1.2em;
-		margin:0 auto;
-		margin-top:40px;
-		margin-bottom:50px;
+	.tblWrap > table td{
+		line-height: 20px; 
+	    border-bottom: 1px solid #e4e4e4;
+	    color: #666666;
+	    padding: 10px 0 10px 0;
+	    text-align: left;
+    	padding-left: 10px;
+    	width:85%;
+	}
+	.tblWrap > table td > input{
+		width:95%;
+		border: 1px solid #cccccc;
+		padding: 0 5px 0 5px;
+		height:24px;
+		line-height: 24px;
+		vertical-align: middle;
+		font-size:15px;
+	}
+	input[name='writer']{
+		width:100px !important;
+	}
+	input[name='company']{
+		width:200px !important;
+	}
+	.btnWrap{
 		text-align: center;
 	}
-	.btn > input{
+	.btnSubmit{
 		border: 0;
 	    background: gray;
 	    color: #fff;
 	    border-radius: 3px;
-	    width: 40px;
+	    width: 45px;
 	    height:30px;
 	    font-size:15px;
 	}
-	.btn > a > button{
+	.btnReset{
+		border: 0;
+	    background: gray;
+	    color: #fff; 
+	    border-radius: 3px;
+	    width: 45px;
+	    height:30px;
+	    font-size:15px;
+	}
+	.btnPrev > button{
 		border: 0;
 	    background: gray;
 	    color: #fff;
 	    border-radius: 3px;
-	    width: 40px;
+	    width: 45px;
 	    height:30px;
 	    font-size:15px;
 	}
-	
 </style>
 <script type="text/javascript">
 	$(function(){
-		//예외처리
+		//게시판 검색
+        $("#searchBtn").click(function(){
+    		var searchType=$("select[name='searchType']").val();
+    		var keyword=$("input[name='keyword']").val();
+    		location.href="adminNotice${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
+    	});
+        //예외처리
     	$("#form1").submit(function(){
 
     		if($("input[name='writer']").val()==""||$("input[name='writer']").val()==null){
@@ -187,33 +182,40 @@
 				</ul>
 			</div>
 			<div class="centerMenu">
-				<h3 class="boardTitle">공지사항관리</h3>
-				<form id="form1" method="post" action="adminNoticeUpdate">
-					<div id="container">
+				<h3 class="boardTitle">언론보도관리</h3>
+				<form id="form1" method="post" action="adminNewsUpdate">
+					<div class="tblWrap">
 						<input type="hidden" value="${pageMaker.cri.page}" name="page">
 						<input type="hidden" value="${pageMaker}" name="pageMaker"> 
 						<input type="hidden" value="${item.bno}" name="bno">
-						<p>작성자: <input type="text" name="writer" value="관리자"></p>
-						<br> 
-						<div id="header">
-							<span>제목:</span>
-							<input id="title" type="text" name="title" value="${item.title}">
-						</div>
-						
-						<textarea id="editor1" name="content">
-						    ${item.content}
-						</textarea>
-						<script>
-							CKEDITOR.replace('content',{filebrowserUploadUrl:"/admin/imgUpload",height:500});
-						</script>
-						<div class="btn">
-							<input type="submit" value="저장">
-							<a href="${pageContext.request.contextPath}/admin/adminNotice"><button type="button">이전</button></a>
-						</div>
+						<table>
+							<tr>
+								<th>제목</th>
+								<td><input type="text" name="title" value="${item.title}"></td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td><input type="text" name="writer" value="관리자"></td>
+							</tr>
+							<tr>
+								<th>언론사</th>
+								<td><input type="text" name="company" value="${item.company}"></td>
+							</tr>
+							<tr>
+								<th>URL</th> 
+								<td><input type="text" name="url" placeholder="ex) http://www.naver.com" value="${item.url}"></td>
+							</tr>
+						</table>
+					</div>
+					<div class="btnWrap">
+						<input class="btnSubmit" type="submit" value="등 록">
+						<input class="btnReset" type="reset" value="취 소">
+						<a class="btnPrev" type="button" href="${pageContext.request.contextPath}/admin/adminNews${pageMaker.makeSearch(pageMaker.cri.page)}"><button type="button">이 전</button></a>
 					</div>
 				</form>
 			</div><!-- centerMenu end -->
 		</div><!-- contentWrap end -->
 	</section>
+	
 </body>
 </html>

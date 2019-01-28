@@ -27,10 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.webaid.domain.CustomerVO;
 import com.webaid.domain.NewsVO;
 import com.webaid.domain.NoticeVO;
 import com.webaid.domain.PageMaker;
 import com.webaid.domain.SearchCriteria;
+import com.webaid.service.CustomerService;
 import com.webaid.service.NewsService;
 import com.webaid.service.NoticeService;
 
@@ -45,6 +47,9 @@ public class AdminController {
 	
 	@Autowired
 	private NewsService newsService;
+	
+	@Autowired
+	private CustomerService cService;
 
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin() throws Exception {
@@ -390,5 +395,104 @@ public class AdminController {
 
 		return "redirect:/admin/adminNews";
 	}
+	
+	@RequestMapping(value = "/adminNewsUpdate", method = RequestMethod.GET)
+	public String adminNewsUpdateGet(int bno, @ModelAttribute("cri") SearchCriteria cri, Model model,
+			HttpServletRequest req) throws Exception {
+		logger.info("adminNewsUpdate get");
 
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+
+		NewsVO vo = newsService.selectOne(bno);
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(cri.getPage());
+		pageMaker.setTotalCount(newsService.listSearchCount(cri));
+
+		model.addAttribute("item", vo);
+		model.addAttribute("pageMaker", pageMaker);
+
+		return "admin/adminNewsUpdate";
+	}
+
+	@RequestMapping(value = "/adminNewsUpdate", method = RequestMethod.POST)
+	public String adminNewsUpdatePost(NewsVO vo, int page, @ModelAttribute("cri") SearchCriteria cri, RedirectAttributes rtts,
+			Model model, HttpServletRequest req) throws Exception {
+		logger.info("adminNewsUpdate post");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+
+		newsService.update(vo);
+
+		rtts.addAttribute("bno", vo.getBno());
+
+		PageMaker pageMaker = new PageMaker();
+
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(page);
+
+		pageMaker.setTotalCount(newsService.listSearchCount(cri));
+
+		rtts.addAttribute("page", page);
+
+		return "redirect:/admin/adminNewsRead";
+	}
+
+	@RequestMapping(value = "/adminNewsDelete", method = RequestMethod.GET)
+	public String adminNewsDelete(int bno, SearchCriteria cri, RedirectAttributes rtts, HttpServletRequest req)
+			throws Exception {
+		logger.info("adminNews delete");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+
+		newsService.delete(bno);// 게시글, 파일 삭제
+		rtts.addAttribute("perPageNum", cri.getPerPageNum());
+		rtts.addAttribute("page", cri.getPage());
+
+		return "redirect:/admin/adminNews";
+	}
+	
+	@RequestMapping(value = "/adminCustomer")
+	public String adminCustomer(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req)
+			throws Exception {
+		logger.info("adminCustomer GET");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+		
+		List<CustomerVO> list=cService.listSearch(cri);
+		
+		cri.setKeyword(null);
+		cri.setSearchType("n");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(cri.getPage());
+		pageMaker.setTotalCount(cService.listSearchCount(cri));
+
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "admin/adminCustomer";
+	}
 }

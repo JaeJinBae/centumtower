@@ -31,6 +31,11 @@ public class NewsDaoImpl implements NewsDao {
 	public void insert(NewsVO vo) {
 		session.insert(namespace+".insert", vo);
 	}
+	
+	@Override
+	public void update(NewsVO vo){
+		session.update(namespace+".update",vo);
+	}
 
 	@Override
 	public void delete(int bno) {

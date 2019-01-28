@@ -29,6 +29,11 @@ public class NewsServiceImpl implements NewsService {
 	public void insert(NewsVO vo) {
 		dao.insert(vo);
 	}
+	
+	@Override
+	public void update(NewsVO vo){
+		dao.update(vo);
+	}
 
 	@Override
 	public void delete(int bno) {
