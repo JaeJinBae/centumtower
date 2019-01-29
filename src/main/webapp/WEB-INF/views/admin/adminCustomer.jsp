@@ -245,7 +245,7 @@
 					<form id="f1" method="post" action="excelDown">
 						<input type="submit" value="등록일순 엑셀 다운">
 					</form>
-					<form id="f1" method="post" action="excelDown">
+					<form id="f1" method="post" action="excelDownByName">
 						<input type="submit" value="이름순 엑셀 다운">
 					</form>
 					<div class="page">
