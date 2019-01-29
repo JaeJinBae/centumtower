@@ -88,14 +88,17 @@
 	.th1{
 		width:45px;
 	}
+	.th2{
+		width:100px;
+	}
 	.th3{
-		width:70px;
+		width:170px;
 	}
 	.th4{
-		width:85px;
+		width:200px;
 	}
 	.th5{
-		width:50px;
+		width:150px;
 	}
 	.th6{
 		width:100px;
@@ -106,7 +109,6 @@
 		padding:10px 0;
 	}
 	.tableWrap > table tr td:nth-child(2){
-		text-align: left;
 		padding:10px 15px !important;
 	}
 	.tableWrap > table tr td:last-child > a > button{
@@ -123,12 +125,13 @@
 		
 	}
 	.registerBtn > a > button{
-		width:60px;
-		height:30px;
+		/* width:60px;
+		height:30px; */
 		background: gray;
 		color:#fff;
 		font-size:15px;
 		margin-top:20px;
+		padding: 8px 13px;
 	}
 	.page{
 		clear:both;
@@ -182,12 +185,12 @@
     		var searchType = encodeURIComponent(s);
     		var k=$("input[name='keyword']").val();
     		var keyword = encodeURIComponent(k);
-    		location.href="adminNotice${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
+    		location.href="adminCustomer${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
     	});
 		
 	});
 </script>
-</head>
+</head> 
 <body>
 	<header>
 		<jsp:include page="include/header.jsp"/>
@@ -229,16 +232,22 @@
 										<td>${item.email}</td>
 										<td><fmt:formatDate type="date" value="${item.regdate}"/></td>
 										<td>
-											<a href="${pageContext.request.contextPath}/admin/adminNoticeUpdate${pageMaker.makeSearch(pageMaker.cri.page)}&mno=${item.mno}"><button>수정</button></a>
+											<a href="${pageContext.request.contextPath}/admin/adminCustomerUpdate${pageMaker.makeSearch(pageMaker.cri.page)}&mno=${item.mno}"><button>수정</button></a>
 											&nbsp;|&nbsp;
-											<a href="${pageContext.request.contextPath}/admin/adminNoticeDelete${pageMaker.makeSearch(pageMaker.cri.page)}&mno=${item.mno}"><button>삭제</button></a>
+											<a href="${pageContext.request.contextPath}/admin/adminCustomerDelete${pageMaker.makeSearch(pageMaker.cri.page)}&mno=${item.mno}"><button>삭제</button></a>
 										</td>
 									</tr>	
 								</c:forEach>
 						    </c:otherwise> 
 						</c:choose>
 					</table>
-					<p class="registerBtn"><a href="adminNoticeRegister${pageMaker.makeSearch(pageMaker.cri.page)}"><button>글쓰기</button></a></p>
+					<!-- <p class="registerBtn"><a href="#none"><button>엑셀 다운</button></a></p> -->
+					<form id="f1" method="post" action="excelDown">
+						<input type="submit" value="등록일순 엑셀 다운">
+					</form>
+					<form id="f1" method="post" action="excelDown">
+						<input type="submit" value="이름순 엑셀 다운">
+					</form>
 					<div class="page">
 						<ul>
 							<c:if test="${pageMaker.prev}">

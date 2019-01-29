@@ -2,15 +2,28 @@ package com.webaid.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,17 +114,17 @@ public class AdminController {
 			return "admin/adminLogin";
 		}
 
-		List<NoticeVO> list = nService.listSearch(cri);
+		List<CustomerVO> list = cService.listSearch(cri);
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.makeSearch(cri.getPage());
-		pageMaker.setTotalCount(nService.listSearchCount(cri));
+		pageMaker.setTotalCount(cService.listSearchCount(cri));
 
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
 
-		return "admin/adminNotice";
+		return "admin/adminCustomer";
 	}
 
 	@RequestMapping(value = "/adminNotice")
@@ -494,5 +507,90 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "admin/adminCustomer";
+	}
+	
+	@RequestMapping(value="/excelDown", method=RequestMethod.POST)
+	public void excelDown(Model model, HttpServletResponse response) throws IOException{
+		logger.info("Excel Down Post");
+		
+			logger.info("엑셀 다운 try 진입!");
+			XSSFWorkbook objWorkBook = new XSSFWorkbook();
+			XSSFSheet objSheet = null;
+			XSSFRow objRow = null;
+			XSSFCell objCell = null;
+			
+			Date date= new Date();
+			SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
+			String nowDate=format.format(date);
+			
+			DateFormat format2=DateFormat.getDateInstance(DateFormat.MEDIUM);
+			
+			//제목 css
+			XSSFCellStyle styleHd = objWorkBook.createCellStyle();    //제목 스타일
+			styleHd.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			
+			objSheet=objWorkBook.createSheet("TestSheet");
+			
+			objSheet.setColumnWidth(0, 100);			
+			
+			objRow = objSheet.createRow(0);
+			
+			// 행 높이 지정
+			objRow.setHeight ((short) 0x150);
+			
+			//셀에 데이터 넣지
+			objCell = objRow.createCell(0);
+			objCell.setCellValue("이름");
+			objCell.setCellStyle(styleHd);
+			  
+			objCell = objRow.createCell(1);
+			objCell.setCellValue("전화번호");
+			objCell.setCellStyle(styleHd);
+			
+			objCell = objRow.createCell(2);
+			objCell.setCellValue("이메일");
+			objCell.setCellStyle(styleHd);
+			
+			objCell = objRow.createCell(3);
+			objCell.setCellValue("등록일");
+			objCell.setCellStyle(styleHd);
+			
+			List<CustomerVO> memberList=cService.selectAll();
+					
+			int index=1;
+			
+			for(CustomerVO vo:memberList){
+				
+				objRow=objSheet.createRow(index);
+				
+				objCell = objRow.createCell(0);
+				objCell.setCellValue(vo.getName());
+				  
+				objCell = objRow.createCell(1);
+				objCell.setCellValue(vo.getPhone());
+				
+				objCell = objRow.createCell(2);
+				objCell.setCellValue(vo.getEmail());
+				
+				objCell = objRow.createCell(3);
+				objCell.setCellValue(format2.format(vo.getRegdate()));
+				
+				index++;
+			}
+			
+			for (int i = 0; i < memberList.size(); i++) {
+				objSheet.autoSizeColumn(i);
+		    }
+
+			response.setContentType("Application/Msexcel");
+			response.setHeader("Content-Disposition", "ATTachment; Filename="+URLEncoder.encode("관심고객현황_"+nowDate, "UTF-8") + ".xlsx");
+			
+		    OutputStream fileOut = response.getOutputStream();
+		    objWorkBook.write(fileOut);
+		    fileOut.close();
+		
+		    response.getOutputStream().flush();
+		    response.getOutputStream().close();
+		    
 	}
 }
