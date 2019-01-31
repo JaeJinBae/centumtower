@@ -21,10 +21,15 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<CustomerVO> selectAll() {
 		return session.selectList(namespace+".selectAll");
 	}
+	
+	@Override
+	public List<CustomerVO> selectAllByName(){
+		return session.selectList(namespace+".selectAllByName");
+	}
 
 	@Override
-	public CustomerVO selectOne(int bno) {
-		return session.selectOne(namespace+".selectOne", bno);
+	public CustomerVO selectOne(int mno) {
+		return session.selectOne(namespace+".selectOne", mno);
 	}
 
 	@Override
@@ -33,8 +38,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public void delete(int bno) {
-		session.delete(namespace+".delete",bno);
+	public void update(CustomerVO vo){
+		session.update(namespace+".update", vo);
+	}
+	
+	@Override
+	public void delete(int mno) {
+		session.delete(namespace+".delete",mno);
 	}
 
 	@Override

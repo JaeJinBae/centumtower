@@ -116,6 +116,9 @@ public class AdminController {
 
 		List<CustomerVO> list = cService.listSearch(cri);
 
+		cri.setKeyword(null);
+		cri.setSearchType("n");
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.makeSearch(cri.getPage());
@@ -149,6 +152,8 @@ public class AdminController {
 		pageMaker.makeSearch(cri.getPage());
 		pageMaker.setTotalCount(nService.listSearchCount(cri));
 
+		System.out.println(pageMaker.toString());
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
 
@@ -348,6 +353,8 @@ public class AdminController {
 		pageMaker.makeSearch(cri.getPage());
 		pageMaker.setTotalCount(newsService.listSearchCount(cri));
 
+		System.out.println(pageMaker.toString());
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
 		
@@ -503,10 +510,84 @@ public class AdminController {
 		pageMaker.makeSearch(cri.getPage());
 		pageMaker.setTotalCount(cService.listSearchCount(cri));
 
+		System.out.println(pageMaker.toString());
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "admin/adminCustomer";
+	}
+	
+	@RequestMapping(value = "/adminCustomerUpdate", method = RequestMethod.GET)
+	public String adminCustomerUpdateGet(int mno, @ModelAttribute("cri") SearchCriteria cri, Model model,
+			HttpServletRequest req) throws Exception {
+		logger.info("adminCustomerUpdate get");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+
+		CustomerVO vo = cService.selectOne(mno);
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(cri.getPage());
+		pageMaker.setTotalCount(cService.listSearchCount(cri));
+
+		model.addAttribute("item", vo);
+		model.addAttribute("pageMaker", pageMaker);
+
+		return "admin/adminCustomerUpdate";
+	}
+
+	@RequestMapping(value = "/adminCustomerUpdate", method = RequestMethod.POST)
+	public String adminCustomerUpdatePost(CustomerVO vo, int page, @ModelAttribute("cri") SearchCriteria cri, RedirectAttributes rtts,
+			Model model, HttpServletRequest req) throws Exception {
+		logger.info("adminCustomerUpdate post");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+		
+		cService.update(vo);
+
+		rtts.addAttribute("mno", vo.getMno());
+
+		PageMaker pageMaker = new PageMaker();
+
+		pageMaker.setCri(cri);
+		pageMaker.makeSearch(page);
+
+		pageMaker.setTotalCount(cService.listSearchCount(cri));
+
+		rtts.addAttribute("page", page);
+
+		return "redirect:/admin/adminCustomer";
+	}
+	
+	@RequestMapping(value = "/adminCustomerDelete", method = RequestMethod.GET)
+	public String adminCustomerDelete(int mno, SearchCriteria cri, RedirectAttributes rtts, HttpServletRequest req)
+			throws Exception {
+		logger.info("adminCustomer delete");
+
+		HttpSession session = req.getSession(false);
+
+		if (session.getAttribute("id") == null) {
+			logger.info("아이디는 null 입니다.");
+			return "admin/adminLogin";
+		}
+
+		cService.delete(mno);// 게시글, 파일 삭제
+		rtts.addAttribute("perPageNum", cri.getPerPageNum());
+		rtts.addAttribute("page", cri.getPage());
+
+		return "redirect:/admin/adminCustomer";
 	}
 	
 	@RequestMapping(value="/excelDown", method=RequestMethod.POST)
@@ -556,6 +637,91 @@ public class AdminController {
 			objCell.setCellStyle(styleHd);
 			
 			List<CustomerVO> memberList=cService.selectAll();
+					
+			int index=1;
+			
+			for(CustomerVO vo:memberList){
+				
+				objRow=objSheet.createRow(index);
+				
+				objCell = objRow.createCell(0);
+				objCell.setCellValue(vo.getName());
+				  
+				objCell = objRow.createCell(1);
+				objCell.setCellValue(vo.getPhone());
+				
+				objCell = objRow.createCell(2);
+				objCell.setCellValue(vo.getEmail());
+				
+				objCell = objRow.createCell(3);
+				objCell.setCellValue(format2.format(vo.getRegdate()));
+				
+				index++;
+			}
+			
+			for (int i = 0; i < memberList.size(); i++) {
+				objSheet.autoSizeColumn(i);
+		    }
+
+			response.setContentType("Application/Msexcel");
+			response.setHeader("Content-Disposition", "ATTachment; Filename="+URLEncoder.encode("관심고객현황_"+nowDate, "UTF-8") + ".xlsx");
+			
+		    OutputStream fileOut = response.getOutputStream();
+		    objWorkBook.write(fileOut);
+		    fileOut.close();
+		
+		    response.getOutputStream().flush();
+		    response.getOutputStream().close();
+		    
+	}
+	
+	@RequestMapping(value="/excelDownByName", method=RequestMethod.POST)
+	public void excelDownByName(Model model, HttpServletResponse response) throws IOException{
+		logger.info("Excel Down by name Post");
+		
+			logger.info("엑셀 다운 try 진입!");
+			XSSFWorkbook objWorkBook = new XSSFWorkbook();
+			XSSFSheet objSheet = null;
+			XSSFRow objRow = null;
+			XSSFCell objCell = null;
+			
+			Date date= new Date();
+			SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
+			String nowDate=format.format(date);
+			
+			DateFormat format2=DateFormat.getDateInstance(DateFormat.MEDIUM);
+			
+			//제목 css
+			XSSFCellStyle styleHd = objWorkBook.createCellStyle();    //제목 스타일
+			styleHd.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			
+			objSheet=objWorkBook.createSheet("TestSheet");
+			
+			objSheet.setColumnWidth(0, 100);			
+			
+			objRow = objSheet.createRow(0);
+			
+			// 행 높이 지정
+			objRow.setHeight ((short) 0x150);
+			
+			//셀에 데이터 넣지
+			objCell = objRow.createCell(0);
+			objCell.setCellValue("이름");
+			objCell.setCellStyle(styleHd);
+			  
+			objCell = objRow.createCell(1);
+			objCell.setCellValue("전화번호");
+			objCell.setCellStyle(styleHd);
+			
+			objCell = objRow.createCell(2);
+			objCell.setCellValue("이메일");
+			objCell.setCellStyle(styleHd);
+			
+			objCell = objRow.createCell(3);
+			objCell.setCellValue("등록일");
+			objCell.setCellStyle(styleHd);
+			
+			List<CustomerVO> memberList=cService.selectAllByName();
 					
 			int index=1;
 			

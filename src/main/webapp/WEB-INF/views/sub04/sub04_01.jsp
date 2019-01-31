@@ -349,7 +349,7 @@
 									<td><input type="hidden" name="email" value=""></td>
 								</tr>
 							</table>
-						</div>
+						</div><!-- tblWrap end -->
 						<div class="btnWrap">
 							<input class="btnSubmit" type="submit" value="신청">
 							<input class="btnReset" type="reset" value="취소">

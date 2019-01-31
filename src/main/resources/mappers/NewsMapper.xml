@@ -25,12 +25,12 @@
 	</delete>
 	
 	<select id="listSearch" resultType="NewsVO">
-		select * from news2 <include refid="search"></include> order by bno desc limit #{pageStart},#{perPageNum}  
+		select * from news2 <include refid="search"></include> order by bno desc limit #{pageStart},#{perPageNum}
 	</select>
 	
 	<sql id="search">
 		<if test="searchType=='t'.toString()">
-			where title like concat('%',#{keyword},'%') 
+			where title like concat('%',#{keyword},'%')
 		</if>
 		<if test="searchType=='b'.toString()">
 			where bno like concat('%',#{keyword},'%')

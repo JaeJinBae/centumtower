@@ -7,9 +7,11 @@ import com.webaid.domain.SearchCriteria;
 
 public interface CustomerService {
 	public List<CustomerVO> selectAll();
-	public CustomerVO selectOne(int bno);
+	public List<CustomerVO> selectAllByName();
+	public CustomerVO selectOne(int mno);
 	public void insert(CustomerVO vo);
-	public void delete(int bno);
+	public void update(CustomerVO vo);
+	public void delete(int mno);
 	public List<CustomerVO> listSearch(SearchCriteria cri) throws Exception;
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 }

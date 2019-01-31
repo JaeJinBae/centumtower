@@ -68,6 +68,7 @@
 	}
 	.tableWrap{
 		width:100%;
+		text-align: right;
 	}
 	.tableWrap > table{
 		width:100%;
@@ -84,6 +85,7 @@
 		font-size:16px;
 		padding:10px 0;
 		font-weight:bold;
+		text-align: center;
 	}
 	.th1{
 		width:45px;
@@ -132,6 +134,18 @@
 		font-size:15px;
 		margin-top:20px;
 		padding: 8px 13px;
+	}
+	.ft{
+		display:inline;
+	}
+	.ft > input {
+		background: gray;
+		color:#fff;
+		font-size:15px;
+		margin-top:20px;
+		padding: 8px 13px;
+		border-style:none;
+		cursor:pointer;
 	}
 	.page{
 		clear:both;
@@ -241,11 +255,10 @@
 						    </c:otherwise> 
 						</c:choose>
 					</table>
-					<!-- <p class="registerBtn"><a href="#none"><button>엑셀 다운</button></a></p> -->
-					<form id="f1" method="post" action="excelDown">
+					<form id="f1" class="ft" method="post" action="excelDown">
 						<input type="submit" value="등록일순 엑셀 다운">
 					</form>
-					<form id="f1" method="post" action="excelDownByName">
+					<form id="f2" class="ft" method="post" action="excelDownByName">
 						<input type="submit" value="이름순 엑셀 다운">
 					</form>
 					<div class="page">

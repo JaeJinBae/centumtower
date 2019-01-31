@@ -21,18 +21,28 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public CustomerVO selectOne(int bno) {
-		return dao.selectOne(bno);
+	public List<CustomerVO> selectAllByName(){
+		return dao.selectAllByName();
+	}
+	
+	@Override
+	public CustomerVO selectOne(int mno) {
+		return dao.selectOne(mno);
 	}
 
 	@Override
 	public void insert(CustomerVO vo) {
 		dao.insert(vo);
 	}
+	
+	@Override
+	public void update(CustomerVO vo){
+		dao.update(vo);
+	}
 
 	@Override
-	public void delete(int bno) {
-		dao.delete(bno);
+	public void delete(int mno) {
+		dao.delete(mno);
 	}
 
 	@Override
