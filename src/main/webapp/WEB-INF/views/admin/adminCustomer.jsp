@@ -280,9 +280,8 @@
 					<div class="box-body" style="text-align:center;">
 						<select name="searchType">
 							<option value="n">선택해주세요.</option>
-							<option value="t" ${cri.searchType=='t'?'selected':''}>제목</option>
-							<option value="c" ${cri.searchType=='c'?'selected':''}>내용</option>
-							<option value="r" ${cri.searchType=='r'?'selected':''}>작성일</option>
+							<option value="name" ${cri.searchType=='t'?'selected':''}>이름</option>
+							<option value="mno" ${cri.searchType=='c'?'selected':''}>번호</option>
 						</select> 
 						<input type="text" name="keyword" id="keywordInput" value="${cri.keyword}">
 						<button id="searchBtn">검색</button>

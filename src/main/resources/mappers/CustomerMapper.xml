@@ -33,10 +33,10 @@
 	</select>
 	
 	<sql id="search">
-		<if test="searchType=='n'.toString()">
+		<if test="searchType=='name'.toString()">
 			where name like concat('%',#{keyword},'%') 
 		</if>
-		<if test="searchType=='m'.toString()">
+		<if test="searchType=='mno'.toString()">
 			where mno like concat('%',#{keyword},'%')
 		</if>
 	</sql>

@@ -107,7 +107,7 @@ public class AdminController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String adminHome(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpServletRequest req)
 			throws Exception {
-		logger.info("adminHome/adminNotice GET");
+		logger.info("adminHome/adminCustomer GET");
 		HttpSession session = req.getSession(false);
 		if (session.getAttribute("id") == null) {
 			logger.info("아이디는 null 입니다.");
